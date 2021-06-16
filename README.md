@@ -1,5 +1,3 @@
-# Vue Audio Player Component
-
 ## Installing
 
 ```shell
@@ -10,7 +8,7 @@ $ npm install --save vue-audio-player-component
 
 ```js
 <script>
-import VueAudioPlayer from '@/vue-audio-player.vue';
+import VueAudioPlayer from 'vue-audio-player.vue';
 
 export default {
   ...
@@ -25,7 +23,7 @@ export default {
 ```
 
 ```html
- <vue-audio-player src="https://d3ctxlq1ktw2nl.cloudfront.net/staging/2021-05-25/fb095de4c931b43df24cef68541e89c6.m4a"/>
+<vue-audio-player src="https://d3ctxlq1ktw2nl.cloudfront.net/staging/2021-05-25/fb095de4c931b43df24cef68541e89c6.m4a"/>
 
 <vue-audio-player color="#2edeb0" rangeColor="#2edeb050" src="https://d3ctxlq1ktw2nl.cloudfront.net/staging/2021-05-17/e65d4630980a822363aee15b84b760e6.m4a"/>
 

@@ -1,4 +1,4 @@
-'use strict';function _slicedToArray(arr, i) {
+'use strict';var Vue=require('vue'),bootstrapVue=require('bootstrap-vue');function _interopDefaultLegacy(e){return e&&typeof e==='object'&&'default'in e?e:{'default':e}}var Vue__default=/*#__PURE__*/_interopDefaultLegacy(Vue);function _slicedToArray(arr, i) {
   return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
 }
 
@@ -424,12 +424,17 @@ var __vue_component__$1 = /*#__PURE__*/normalizeComponent({
   staticRenderFns: __vue_staticRenderFns__$1
 }, __vue_inject_styles__$1, __vue_script__$1, __vue_scope_id__$1, __vue_is_functional_template__$1, __vue_module_identifier__$1, false, undefined, undefined, undefined);//
 
+require("bootstrap/dist/css/bootstrap.css");
+
+require("bootstrap-vue/dist/bootstrap-vue.css");
+Vue__default['default'].use(bootstrapVue.BootstrapVue);
+
 var formatTime = function formatTime(second) {
   return new Date(second * 1000).toISOString().substr(11, 8);
 };
 
 var script = {
-  name: 'vue-audio-player',
+  name: "vue-audio-player",
   props: {
     src: {
       type: String,
@@ -447,10 +452,6 @@ var script = {
       type: Function,
       default: function _default() {}
     },
-    downloadable: {
-      type: Boolean,
-      default: false
-    },
     color: {
       type: String,
       default: "#FFF"
@@ -466,7 +467,7 @@ var script = {
   },
   computed: {
     duration: function duration() {
-      return this.audio ? formatTime(this.totalDuration) : '';
+      return this.audio ? formatTime(this.totalDuration) : "";
     }
   },
   components: {
@@ -484,11 +485,17 @@ var script = {
       playing: false,
       paused: false,
       percentage: 0,
-      currentTime: '00:00:00',
+      currentTime: "00:00:00",
       audio: undefined,
       totalDuration: 0,
       playerVolume: 1
     };
+  },
+  mounted: function mounted() {
+    this.audio = this.$refs.player;
+    this.init();
+    this.$refs.audio_player.style.setProperty("--color", "".concat(this.color));
+    this.$refs.audio_player.style.setProperty("--rangeColor", "".concat(this.rangeColor));
   },
   methods: {
     setPosition: function setPosition(e) {
@@ -524,7 +531,7 @@ var script = {
     },
     download: function download() {
       this.audio.pause();
-      window.open(this.src, 'download');
+      window.open(this.src, "download");
     },
     mute: function mute() {
       this.isMuted = !this.isMuted;
@@ -556,7 +563,7 @@ var script = {
 
         if (this.autoPlay) this.audio.play();
       } else {
-        throw new Error('Failed to load sound src');
+        throw new Error("Failed to load sound src");
       }
     },
     _handlePlayingUI: function _handlePlayingUI() {
@@ -566,7 +573,7 @@ var script = {
       this.playing = true;
     },
     _handlePlayPause: function _handlePlayPause(e) {
-      if (e.type === 'play' && this.firstPlay) {
+      if (e.type === "play" && this.firstPlay) {
         // in some situations, audio.currentTime is the end one on chrome
         this.audio.currentTime = 0;
 
@@ -575,33 +582,27 @@ var script = {
         }
       }
 
-      if (e.type === 'pause' && this.paused === false && this.playing === false) {
-        this.currentTime = '00:00:00';
+      if (e.type === "pause" && this.paused === false && this.playing === false) {
+        this.currentTime = "00:00:00";
       }
     },
     _handleEnded: function _handleEnded() {
       this.paused = this.playing = false;
     },
     init: function init() {
-      this.audio.addEventListener('timeupdate', this._handlePlayingUI);
-      this.audio.addEventListener('loadeddata', this._handleLoaded);
-      this.audio.addEventListener('pause', this._handlePlayPause);
-      this.audio.addEventListener('play', this._handlePlayPause);
-      this.audio.addEventListener('ended', this._handleEnded);
+      this.audio.addEventListener("timeupdate", this._handlePlayingUI);
+      this.audio.addEventListener("loadeddata", this._handleLoaded);
+      this.audio.addEventListener("pause", this._handlePlayPause);
+      this.audio.addEventListener("play", this._handlePlayPause);
+      this.audio.addEventListener("ended", this._handleEnded);
     }
   },
-  mounted: function mounted() {
-    this.audio = this.$refs.player;
-    this.init();
-    this.$refs.audio_player.style.setProperty("--color", "".concat(this.color));
-    this.$refs.audio_player.style.setProperty("--rangeColor", "".concat(this.rangeColor));
-  },
   beforeDestroy: function beforeDestroy() {
-    this.audio.removeEventListener('timeupdate', this._handlePlayingUI);
-    this.audio.removeEventListener('loadeddata', this._handleLoaded);
-    this.audio.removeEventListener('pause', this._handlePlayPause);
-    this.audio.removeEventListener('play', this._handlePlayPause);
-    this.audio.removeEventListener('ended', this._handleEnded);
+    this.audio.removeEventListener("timeupdate", this._handlePlayingUI);
+    this.audio.removeEventListener("loadeddata", this._handleLoaded);
+    this.audio.removeEventListener("pause", this._handlePlayPause);
+    this.audio.removeEventListener("play", this._handlePlayPause);
+    this.audio.removeEventListener("ended", this._handleEnded);
   }
 };function createInjectorSSR(context) {
     if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
@@ -658,17 +659,17 @@ var __vue_render__ = function __vue_render__() {
     ref: "audio_player",
     staticClass: "d-flex align-items-center disable-select",
     class: {
-      'disabled': !_vm.loaded
+      disabled: !_vm.loaded
     },
     attrs: {
       "id": "audio"
     }
-  }, [_vm._ssrNode("<button" + _vm._ssrAttr("disabled", !_vm.loaded) + " class=\"button-none\" data-v-197bc560>", "</button>", [_c('GoBack', {
+  }, [_vm._ssrNode("<button" + _vm._ssrAttr("disabled", !_vm.loaded) + " class=\"button-none\" data-v-2d4d7942>", "</button>", [_c('GoBack', {
     staticClass: "left",
     attrs: {
       "color": _vm.color
     }
-  })], 1), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"d-flex justify-content-center\" data-v-197bc560>", "</div>", [_vm.loaded ? _vm._ssrNode("<button" + _vm._ssrAttr("disabled", !_vm.loaded) + " class=\"play mx-md-2 mx-1 button-none\" data-v-197bc560>", "</button>", [!_vm.playing || _vm.paused ? _c('Play', {
+  })], 1), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"d-flex justify-content-center\" data-v-2d4d7942>", "</div>", [_vm.loaded ? _vm._ssrNode("<button" + _vm._ssrAttr("disabled", !_vm.loaded) + " class=\"play mx-md-2 mx-1 button-none\" data-v-2d4d7942>", "</button>", [!_vm.playing || _vm.paused ? _c('Play', {
     attrs: {
       "color": _vm.color
     }
@@ -679,12 +680,12 @@ var __vue_render__ = function __vue_render__() {
   })], 1) : _c('b-spinner', {
     staticClass: "spinner mx-md-2 mx-1",
     style: "color: " + _vm.color
-  })], 1), _vm._ssrNode(" "), _vm._ssrNode("<button" + _vm._ssrAttr("disabled", !_vm.loaded) + " class=\"button-none\" data-v-197bc560>", "</button>", [_c('GoBack', {
+  })], 1), _vm._ssrNode(" "), _vm._ssrNode("<button" + _vm._ssrAttr("disabled", !_vm.loaded) + " class=\"button-none\" data-v-2d4d7942>", "</button>", [_c('GoBack', {
     staticClass: "right",
     attrs: {
       "color": _vm.color
     }
-  })], 1), _vm._ssrNode(" <input min=\"0\" step=\"0.01\"" + _vm._ssrAttr("max", 100) + " type=\"range\"" + _vm._ssrAttr("disabled", !_vm.loaded) + _vm._ssrAttr("value", _vm.percentage) + " class=\"seak-bar mx-md-4 mx-3 default\" data-v-197bc560> <span class=\"mx-md-4 mx-3\"" + _vm._ssrStyle(null, "color: " + _vm.color, null) + " data-v-197bc560>" + _vm._ssrEscape(_vm._s(_vm.currentTime) + " / " + _vm._s(_vm.duration)) + "</span> "), _vm._ssrNode("<div class=\"volume\" data-v-197bc560>", "</div>", [!_vm.isMuted ? _c('Volumn', {
+  })], 1), _vm._ssrNode(" <input min=\"0\" step=\"0.01\"" + _vm._ssrAttr("max", 100) + " type=\"range\"" + _vm._ssrAttr("disabled", !_vm.loaded) + _vm._ssrAttr("value", _vm.percentage) + " class=\"seak-bar mx-md-4 mx-3 default\" data-v-2d4d7942> <span class=\"mx-md-4 mx-3\"" + _vm._ssrStyle(null, "color: " + _vm.color, null) + " data-v-2d4d7942>" + _vm._ssrEscape(_vm._s(_vm.currentTime) + " / " + _vm._s(_vm.duration)) + "</span> "), _vm._ssrNode("<div class=\"volume\" data-v-2d4d7942>", "</div>", [!_vm.isMuted ? _c('Volumn', {
     attrs: {
       "color": _vm.color
     }
@@ -692,7 +693,7 @@ var __vue_render__ = function __vue_render__() {
     attrs: {
       "color": _vm.color
     }
-  })], 1), _vm._ssrNode(" <input min=\"0\" step=\"0.1\"" + _vm._ssrAttr("max", 1) + " type=\"range\"" + _vm._ssrAttr("disabled", !_vm.loaded) + _vm._ssrAttr("value", _vm.playerVolume) + " class=\"volumn-container mr-md-4 mr-2\" data-v-197bc560> <audio id=\"player\"" + _vm._ssrAttr("loop", _vm.loop) + _vm._ssrAttr("autoplay", _vm.autoPlay) + _vm._ssrAttr("src", _vm.src) + " data-v-197bc560></audio>")], 2);
+  })], 1), _vm._ssrNode(" <input min=\"0\" step=\"0.1\"" + _vm._ssrAttr("max", 1) + " type=\"range\"" + _vm._ssrAttr("disabled", !_vm.loaded) + _vm._ssrAttr("value", _vm.playerVolume) + " class=\"volumn-container mr-md-4 mr-2\" data-v-2d4d7942> <audio id=\"player\"" + _vm._ssrAttr("src", _vm.src) + " data-v-2d4d7942></audio>")], 2);
 };
 
 var __vue_staticRenderFns__ = [];
@@ -700,8 +701,8 @@ var __vue_staticRenderFns__ = [];
 
 var __vue_inject_styles__ = function __vue_inject_styles__(inject) {
   if (!inject) return;
-  inject("data-v-197bc560_0", {
-    source: "#audio[data-v-197bc560]{--color:#FFF;--rangeColor:#FFFFFF50}.button-none[data-v-197bc560]{background:0 0;border:none}.white-color[data-v-197bc560]{color:#fff}#audio[data-v-197bc560]{width:100%}#audio.disabled[data-v-197bc560]{opacity:.7}#audio .seak-bar.default[data-v-197bc560]{background:var(--rangeColor)}#audio .seak-bar[data-v-197bc560]{-webkit-appearance:none;border-radius:20px;flex:1;height:14px;cursor:pointer;outline:0}#audio .seak-bar[data-v-197bc560]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:14px;height:14px;background:var(--color);cursor:pointer;border-radius:50%}#audio .seak-bar[data-v-197bc560]::-moz-range-thumb{width:14px;height:14px;background:var(--color);cursor:pointer}#audio span[data-v-197bc560]{font-size:12px;font-weight:100}#audio .left[data-v-197bc560],#audio .open[data-v-197bc560],#audio .play[data-v-197bc560],#audio .right[data-v-197bc560],#audio .volume[data-v-197bc560]{cursor:pointer;opacity:.85;transition:.5s}#audio .left[data-v-197bc560],#audio .right[data-v-197bc560]{transition:.15s}#audio .left[data-v-197bc560]:hover,#audio .open[data-v-197bc560]:hover,#audio .play[data-v-197bc560]:hover,#audio .right[data-v-197bc560]:hover,#audio .volume[data-v-197bc560]:hover{opacity:1}#audio .volume[data-v-197bc560]{width:20px;margin-right:8px}#audio .right[data-v-197bc560]{transform:matrix(-1,0,0,1,0,0)}#audio .left[data-v-197bc560]:active{transform:rotate(-45deg)}#audio .right[data-v-197bc560]:active{transform:rotate(45deg) matrix(-1,0,0,1,0,0)}#audio .volumn-container.default[data-v-197bc560]{background:var(--rangeColor)}#audio .volumn-container[data-v-197bc560]{-webkit-appearance:none;border-radius:20px;height:10px;width:54px;background:var(--rangeColor);cursor:pointer;outline:0}#audio .volumn-container[data-v-197bc560]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:10px;height:10px;background:var(--color);cursor:pointer;border-radius:50%}#audio .volumn-container[data-v-197bc560]::-moz-range-thumb{width:10px;height:10px;background:var(--color);cursor:pointer}#audio .volumn-container[data-v-197bc560]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:10px;height:10px;background:var(--color);cursor:pointer;border-radius:50%}#audio .volumn-container[data-v-197bc560]::-moz-range-thumb{width:10px;height:10px;background:var(--color);cursor:pointer}.spinner[data-v-197bc560]{height:16.843px;width:16.843px}@media (max-width:609px){#audio span[data-v-197bc560]{font-size:calc(12px * .9)}}@media (max-width:408px){#audio .seak-bar[data-v-197bc560]{width:100%}#audio .volumn-container[data-v-197bc560]{width:calc(54px * .6)}}",
+  inject("data-v-2d4d7942_0", {
+    source: "#audio[data-v-2d4d7942]{--color:#fff;--rangeColor:#ffffff50}.button-none[data-v-2d4d7942]{background:0 0;border:none}.white-color[data-v-2d4d7942]{color:#fff}#audio[data-v-2d4d7942]{width:100%}#audio.disabled[data-v-2d4d7942]{opacity:.7}#audio .seak-bar.default[data-v-2d4d7942]{background:var(--rangeColor)}#audio .seak-bar[data-v-2d4d7942]{-webkit-appearance:none;border-radius:20px;flex:1;height:14px;cursor:pointer;outline:0}#audio .seak-bar[data-v-2d4d7942]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:14px;height:14px;background:var(--color);cursor:pointer;border-radius:50%}#audio .seak-bar[data-v-2d4d7942]::-moz-range-thumb{width:14px;height:14px;background:var(--color);cursor:pointer}#audio span[data-v-2d4d7942]{font-size:12px;font-weight:100}#audio .left[data-v-2d4d7942],#audio .open[data-v-2d4d7942],#audio .play[data-v-2d4d7942],#audio .right[data-v-2d4d7942],#audio .volume[data-v-2d4d7942]{cursor:pointer;opacity:.85;transition:.5s}#audio .left[data-v-2d4d7942],#audio .right[data-v-2d4d7942]{transition:.15s}#audio .left[data-v-2d4d7942]:hover,#audio .open[data-v-2d4d7942]:hover,#audio .play[data-v-2d4d7942]:hover,#audio .right[data-v-2d4d7942]:hover,#audio .volume[data-v-2d4d7942]:hover{opacity:1}#audio .volume[data-v-2d4d7942]{width:20px;margin-right:8px}#audio .right[data-v-2d4d7942]{transform:matrix(-1,0,0,1,0,0)}#audio .left[data-v-2d4d7942]:active{transform:rotate(-45deg)}#audio .right[data-v-2d4d7942]:active{transform:rotate(45deg) matrix(-1,0,0,1,0,0)}#audio .volumn-container.default[data-v-2d4d7942]{background:var(--rangeColor)}#audio .volumn-container[data-v-2d4d7942]{-webkit-appearance:none;border-radius:20px;height:10px;width:54px;background:var(--rangeColor);cursor:pointer;outline:0}#audio .volumn-container[data-v-2d4d7942]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:10px;height:10px;background:var(--color);cursor:pointer;border-radius:50%}#audio .volumn-container[data-v-2d4d7942]::-moz-range-thumb{width:10px;height:10px;background:var(--color);cursor:pointer}#audio .volumn-container[data-v-2d4d7942]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:10px;height:10px;background:var(--color);cursor:pointer;border-radius:50%}#audio .volumn-container[data-v-2d4d7942]::-moz-range-thumb{width:10px;height:10px;background:var(--color);cursor:pointer}.spinner[data-v-2d4d7942]{height:16.843px;width:16.843px}@media (max-width:609px){#audio span[data-v-2d4d7942]{font-size:calc(12px * .9)}}@media (max-width:408px){#audio .seak-bar[data-v-2d4d7942]{width:100%}#audio .volumn-container[data-v-2d4d7942]{width:calc(54px * .6)}}",
     map: undefined,
     media: undefined
   });
@@ -709,10 +710,10 @@ var __vue_inject_styles__ = function __vue_inject_styles__(inject) {
 /* scoped */
 
 
-var __vue_scope_id__ = "data-v-197bc560";
+var __vue_scope_id__ = "data-v-2d4d7942";
 /* module identifier */
 
-var __vue_module_identifier__ = "data-v-197bc560";
+var __vue_module_identifier__ = "data-v-2d4d7942";
 /* functional template */
 
 var __vue_is_functional_template__ = false;

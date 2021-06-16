@@ -78,8 +78,8 @@
 import Vue from "vue";
 import { BootstrapVue } from "bootstrap-vue";
 
-import "bootstrap/dist/css/bootstrap.css";
-import "bootstrap-vue/dist/bootstrap-vue.css";
+require("bootstrap/dist/css/bootstrap.css");
+require("bootstrap-vue/dist/bootstrap-vue.css");
 
 import GoBack from "../components/GoBack.vue";
 import Play from "../components/Play.vue";

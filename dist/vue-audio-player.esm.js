@@ -1,3 +1,6 @@
+import Vue from 'vue';
+import { BootstrapVue } from 'bootstrap-vue';
+
 //
 //
 //
@@ -518,10 +521,15 @@ const __vue_component__$1 = /*#__PURE__*/normalizeComponent({
 
 //
 
+require("bootstrap/dist/css/bootstrap.css");
+
+require("bootstrap-vue/dist/bootstrap-vue.css");
+Vue.use(BootstrapVue);
+
 const formatTime = second => new Date(second * 1000).toISOString().substr(11, 8);
 
 var script = {
-  name: 'vue-audio-player',
+  name: "vue-audio-player",
   props: {
     src: {
       type: String,
@@ -539,10 +547,6 @@ var script = {
       type: Function,
       default: () => {}
     },
-    downloadable: {
-      type: Boolean,
-      default: false
-    },
     color: {
       type: String,
       default: "#FFF"
@@ -558,7 +562,7 @@ var script = {
   },
   computed: {
     duration: function () {
-      return this.audio ? formatTime(this.totalDuration) : '';
+      return this.audio ? formatTime(this.totalDuration) : "";
     }
   },
   components: {
@@ -577,11 +581,18 @@ var script = {
       playing: false,
       paused: false,
       percentage: 0,
-      currentTime: '00:00:00',
+      currentTime: "00:00:00",
       audio: undefined,
       totalDuration: 0,
       playerVolume: 1
     };
+  },
+
+  mounted() {
+    this.audio = this.$refs.player;
+    this.init();
+    this.$refs.audio_player.style.setProperty("--color", `${this.color}`);
+    this.$refs.audio_player.style.setProperty("--rangeColor", `${this.rangeColor}`);
   },
 
   methods: {
@@ -621,7 +632,7 @@ var script = {
 
     download() {
       this.audio.pause();
-      window.open(this.src, 'download');
+      window.open(this.src, "download");
     },
 
     mute() {
@@ -654,7 +665,7 @@ var script = {
 
         if (this.autoPlay) this.audio.play();
       } else {
-        throw new Error('Failed to load sound src');
+        throw new Error("Failed to load sound src");
       }
     },
     _handlePlayingUI: function () {
@@ -664,7 +675,7 @@ var script = {
       this.playing = true;
     },
     _handlePlayPause: function (e) {
-      if (e.type === 'play' && this.firstPlay) {
+      if (e.type === "play" && this.firstPlay) {
         // in some situations, audio.currentTime is the end one on chrome
         this.audio.currentTime = 0;
 
@@ -673,8 +684,8 @@ var script = {
         }
       }
 
-      if (e.type === 'pause' && this.paused === false && this.playing === false) {
-        this.currentTime = '00:00:00';
+      if (e.type === "pause" && this.paused === false && this.playing === false) {
+        this.currentTime = "00:00:00";
       }
     },
 
@@ -683,27 +694,20 @@ var script = {
     },
 
     init: function () {
-      this.audio.addEventListener('timeupdate', this._handlePlayingUI);
-      this.audio.addEventListener('loadeddata', this._handleLoaded);
-      this.audio.addEventListener('pause', this._handlePlayPause);
-      this.audio.addEventListener('play', this._handlePlayPause);
-      this.audio.addEventListener('ended', this._handleEnded);
+      this.audio.addEventListener("timeupdate", this._handlePlayingUI);
+      this.audio.addEventListener("loadeddata", this._handleLoaded);
+      this.audio.addEventListener("pause", this._handlePlayPause);
+      this.audio.addEventListener("play", this._handlePlayPause);
+      this.audio.addEventListener("ended", this._handleEnded);
     }
   },
 
-  mounted() {
-    this.audio = this.$refs.player;
-    this.init();
-    this.$refs.audio_player.style.setProperty("--color", `${this.color}`);
-    this.$refs.audio_player.style.setProperty("--rangeColor", `${this.rangeColor}`);
-  },
-
   beforeDestroy() {
-    this.audio.removeEventListener('timeupdate', this._handlePlayingUI);
-    this.audio.removeEventListener('loadeddata', this._handleLoaded);
-    this.audio.removeEventListener('pause', this._handlePlayPause);
-    this.audio.removeEventListener('play', this._handlePlayPause);
-    this.audio.removeEventListener('ended', this._handleEnded);
+    this.audio.removeEventListener("timeupdate", this._handlePlayingUI);
+    this.audio.removeEventListener("loadeddata", this._handleLoaded);
+    this.audio.removeEventListener("pause", this._handlePlayPause);
+    this.audio.removeEventListener("play", this._handlePlayPause);
+    this.audio.removeEventListener("ended", this._handleEnded);
   }
 
 };
@@ -776,7 +780,7 @@ var __vue_render__ = function () {
     ref: "audio_player",
     staticClass: "d-flex align-items-center disable-select",
     class: {
-      'disabled': !_vm.loaded
+      disabled: !_vm.loaded
     },
     attrs: {
       "id": "audio"
@@ -880,11 +884,11 @@ var __vue_render__ = function () {
     ref: "player",
     attrs: {
       "id": "player",
-      "loop": _vm.loop,
-      "autoplay": _vm.autoPlay,
       "src": _vm.src
     },
     on: {
+      "loop": _vm.loop,
+      "autoplay": _vm.autoPlay,
       "ended": _vm.ended,
       "canplay": _vm.canPlay
     }
@@ -896,8 +900,8 @@ var __vue_staticRenderFns__ = [];
 
 const __vue_inject_styles__ = function (inject) {
   if (!inject) return;
-  inject("data-v-197bc560_0", {
-    source: "#audio[data-v-197bc560]{--color:#FFF;--rangeColor:#FFFFFF50}.button-none[data-v-197bc560]{background:0 0;border:none}.white-color[data-v-197bc560]{color:#fff}#audio[data-v-197bc560]{width:100%}#audio.disabled[data-v-197bc560]{opacity:.7}#audio .seak-bar.default[data-v-197bc560]{background:var(--rangeColor)}#audio .seak-bar[data-v-197bc560]{-webkit-appearance:none;border-radius:20px;flex:1;height:14px;cursor:pointer;outline:0}#audio .seak-bar[data-v-197bc560]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:14px;height:14px;background:var(--color);cursor:pointer;border-radius:50%}#audio .seak-bar[data-v-197bc560]::-moz-range-thumb{width:14px;height:14px;background:var(--color);cursor:pointer}#audio span[data-v-197bc560]{font-size:12px;font-weight:100}#audio .left[data-v-197bc560],#audio .open[data-v-197bc560],#audio .play[data-v-197bc560],#audio .right[data-v-197bc560],#audio .volume[data-v-197bc560]{cursor:pointer;opacity:.85;transition:.5s}#audio .left[data-v-197bc560],#audio .right[data-v-197bc560]{transition:.15s}#audio .left[data-v-197bc560]:hover,#audio .open[data-v-197bc560]:hover,#audio .play[data-v-197bc560]:hover,#audio .right[data-v-197bc560]:hover,#audio .volume[data-v-197bc560]:hover{opacity:1}#audio .volume[data-v-197bc560]{width:20px;margin-right:8px}#audio .right[data-v-197bc560]{transform:matrix(-1,0,0,1,0,0)}#audio .left[data-v-197bc560]:active{transform:rotate(-45deg)}#audio .right[data-v-197bc560]:active{transform:rotate(45deg) matrix(-1,0,0,1,0,0)}#audio .volumn-container.default[data-v-197bc560]{background:var(--rangeColor)}#audio .volumn-container[data-v-197bc560]{-webkit-appearance:none;border-radius:20px;height:10px;width:54px;background:var(--rangeColor);cursor:pointer;outline:0}#audio .volumn-container[data-v-197bc560]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:10px;height:10px;background:var(--color);cursor:pointer;border-radius:50%}#audio .volumn-container[data-v-197bc560]::-moz-range-thumb{width:10px;height:10px;background:var(--color);cursor:pointer}#audio .volumn-container[data-v-197bc560]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:10px;height:10px;background:var(--color);cursor:pointer;border-radius:50%}#audio .volumn-container[data-v-197bc560]::-moz-range-thumb{width:10px;height:10px;background:var(--color);cursor:pointer}.spinner[data-v-197bc560]{height:16.843px;width:16.843px}@media (max-width:609px){#audio span[data-v-197bc560]{font-size:calc(12px * .9)}}@media (max-width:408px){#audio .seak-bar[data-v-197bc560]{width:100%}#audio .volumn-container[data-v-197bc560]{width:calc(54px * .6)}}",
+  inject("data-v-2d4d7942_0", {
+    source: "#audio[data-v-2d4d7942]{--color:#fff;--rangeColor:#ffffff50}.button-none[data-v-2d4d7942]{background:0 0;border:none}.white-color[data-v-2d4d7942]{color:#fff}#audio[data-v-2d4d7942]{width:100%}#audio.disabled[data-v-2d4d7942]{opacity:.7}#audio .seak-bar.default[data-v-2d4d7942]{background:var(--rangeColor)}#audio .seak-bar[data-v-2d4d7942]{-webkit-appearance:none;border-radius:20px;flex:1;height:14px;cursor:pointer;outline:0}#audio .seak-bar[data-v-2d4d7942]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:14px;height:14px;background:var(--color);cursor:pointer;border-radius:50%}#audio .seak-bar[data-v-2d4d7942]::-moz-range-thumb{width:14px;height:14px;background:var(--color);cursor:pointer}#audio span[data-v-2d4d7942]{font-size:12px;font-weight:100}#audio .left[data-v-2d4d7942],#audio .open[data-v-2d4d7942],#audio .play[data-v-2d4d7942],#audio .right[data-v-2d4d7942],#audio .volume[data-v-2d4d7942]{cursor:pointer;opacity:.85;transition:.5s}#audio .left[data-v-2d4d7942],#audio .right[data-v-2d4d7942]{transition:.15s}#audio .left[data-v-2d4d7942]:hover,#audio .open[data-v-2d4d7942]:hover,#audio .play[data-v-2d4d7942]:hover,#audio .right[data-v-2d4d7942]:hover,#audio .volume[data-v-2d4d7942]:hover{opacity:1}#audio .volume[data-v-2d4d7942]{width:20px;margin-right:8px}#audio .right[data-v-2d4d7942]{transform:matrix(-1,0,0,1,0,0)}#audio .left[data-v-2d4d7942]:active{transform:rotate(-45deg)}#audio .right[data-v-2d4d7942]:active{transform:rotate(45deg) matrix(-1,0,0,1,0,0)}#audio .volumn-container.default[data-v-2d4d7942]{background:var(--rangeColor)}#audio .volumn-container[data-v-2d4d7942]{-webkit-appearance:none;border-radius:20px;height:10px;width:54px;background:var(--rangeColor);cursor:pointer;outline:0}#audio .volumn-container[data-v-2d4d7942]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:10px;height:10px;background:var(--color);cursor:pointer;border-radius:50%}#audio .volumn-container[data-v-2d4d7942]::-moz-range-thumb{width:10px;height:10px;background:var(--color);cursor:pointer}#audio .volumn-container[data-v-2d4d7942]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:10px;height:10px;background:var(--color);cursor:pointer;border-radius:50%}#audio .volumn-container[data-v-2d4d7942]::-moz-range-thumb{width:10px;height:10px;background:var(--color);cursor:pointer}.spinner[data-v-2d4d7942]{height:16.843px;width:16.843px}@media (max-width:609px){#audio span[data-v-2d4d7942]{font-size:calc(12px * .9)}}@media (max-width:408px){#audio .seak-bar[data-v-2d4d7942]{width:100%}#audio .volumn-container[data-v-2d4d7942]{width:calc(54px * .6)}}",
     map: undefined,
     media: undefined
   });
@@ -905,7 +909,7 @@ const __vue_inject_styles__ = function (inject) {
 /* scoped */
 
 
-const __vue_scope_id__ = "data-v-197bc560";
+const __vue_scope_id__ = "data-v-2d4d7942";
 /* module identifier */
 
 const __vue_module_identifier__ = undefined;
