@@ -8,7 +8,7 @@ $ npm install --save vue-audio-player-component
 
 ```js
 <script>
-import VueAudioPlayer from 'vue-audio-player.vue';
+import VueAudioPlayer from 'vue-audio-player-component';
 
 export default {
   ...
