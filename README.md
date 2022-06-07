@@ -33,7 +33,7 @@ export default {
 ```
 ### Code result
 
-![](/.github/result_code.jpg)
+![](https://raw.githubusercontent.com/Vitor-Carmo/vue-audio-player-component/master/.github/result_code.jpg)
 
 
 <br/>
